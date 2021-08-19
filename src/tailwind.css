@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Sunflower:wght@300&family=Thasadith&display=swap");
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+  background: no-repeat;
+  background-size: cover;
+}
+
+#time {
+  font-family: "Thasadith", Roboto;
+  font-size: 9rem;
+}
+
+#loading-page,
+#info-tooltip,
+#track-info,
+#progress-info,
+#apod-article {
+  font-family: "Sunflower", sans-serif;
+}
+
+/* Track Cover Rotating Animation */
+#cover {
+  animation: rotate 3s linear infinite;
+  animation-play-state: paused;
+}
+
+#cover.play {
+  animation-play-state: running;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
