@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+  </head>
+  <body class="overflow-hidden">
+    <!-- Loading Page -->
+    <div
+      id="loading-page"
+      class="h-screen w-screen bg-black opacity-90 flex items-center"
+    >
+      <div class="container animate-pulse text-center">
+        <h1 class="text-2xl text-gray-100">Fetching data...</h1>
+      </div>
+    </div>
+    <!-- Blur Screen -->
+    <div
+      class="
+        h-screen
+        w-screen
+        opacity-40
+        bg-gradient-to-br
+        from-gray-400
+        to-gray-600
+      "
+    ></div>
+
+    <!-- Clock and Music Container -->
+    <div
+      id="main-page"
+      class="
+        hidden
+        animate-fade-in
+        h-screen
+        flex flex-col
+        items-center
+        container
+        absolute
+        bottom-0
+        top-0
+      "
+    >
+      <!-- Buttons -->
+      <div class="container w-screen flex justify-end px-5 pt-5">
+        <!-- Spotify Button -->
+        <div class="inline-block mr-5" id="spotify-btn">
+          <i
+            class="
+              text-gray-100 text-2xl
+              iconify
+              hover:text-white
+              filter
+              hover:drop-shadow-white
+              transform
+              hover:scale-110
+              transition
+              duration-200
+              cursor-pointer
+            "
+            data-icon="akar-icons:spotify-fill"
+          ></i>
+        </div>
+        <!-- Info Button -->
+        <div class="inline-block" id="info-btn">
+          <i
+            class="
+              text-gray-100 text-2xl
+              iconify
+              hover:text-white
+              filter
+              hover:drop-shadow-white
+              transform
+              hover:scale-110
+              transition
+              duration-200
+              cursor-pointer
+            "
+            data-icon="mono-icons:circle-information"
+          ></i>
+        </div>
+      </div>
+
+      <div
+        id="spotify"
+        class="
+          animate-fade-in
+          container
+          flex
+          absolute
+          z-50
+          justify-end
+          mt-20
+          mr-32
+          opacity-70
+          hidden
+        "
+      >
+        <iframe
+          src="https://open.spotify.com/embed/playlist/0uHuh0ZnWD06MtopCjCM2W?theme=0"
+          width="300"
+          height="280"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
+      </div>
+
+      <!-- Time -->
+      <h1
+        id="time"
+        class="
+          filter
+          drop-shadow-white
+          text-9xl text-center text-gray-100
+          pt-32
+          cursor-default
+          transform
+          hover:scale-110
+          transition
+          duration-1000
+          flex
+          space-x-0
+        "
+      >
+        <span id="hour">11</span>
+        <span class="animate-pulse">:</span>
+        <span id="minutes">06</span>
+      </h1>
+
+      <!-- Music Player -->
+      <audio src="songs/hey.mp3" id="audio"></audio>
+      <div
+        id="music-container"
+        class="
+          h-20
+          w-8/12
+          relative
+          container
+          bg-opacity-50 bg-black
+          mt-32
+          rounded-3xl
+          filter
+          shadow-3xl
+          justify-between
+          transform
+          hover:bg-opacity-70
+          transition
+          duration-1000
+        "
+      >
+        <div class="flex relative py-2 items-center">
+          <!-- Album Image -->
+          <div
+            id="img-container"
+            class="
+              transform
+              -translate-y-20
+              container
+              relative
+              w-24
+              mx-3
+              bg-blue-300
+            "
+          >
+            <img
+              id="cover"
+              src="https://cms-assets.tutsplus.com/uploads/users/114/posts/34296/final_image/Final-image.jpg"
+              alt=""
+              onerror="this.src='covers/disc.svg'"
+              class="
+                opacity-80
+                absolute
+                top-0
+                bottom-0
+                w-24
+                h-24
+                rounded-full
+                filter
+                shadow-3xl
+              "
+            />
+          </div>
+
+          <!-- Track Info -->
+          <div
+            id="track-info"
+            class="
+              hidden
+              lg:block
+              flex flex-col
+              py-2
+              w-2/12
+              items-center
+              cursor-default
+              text-sm text-gray-100
+            "
+          >
+            <p id="title" class="font-bold">Yo</p>
+            <p id="artist">I am Human</p>
+          </div>
+
+          <!-- Navigation -->
+          <div class="flex flex-col w-8/12 lg:flex-row h-16 items-center">
+            <div
+              id="navigation"
+              class="
+                flex
+                mx-0
+                h-20
+                sm:h-auto
+                justify-evenly
+                items-center
+                w-full
+                lg:w-5/12
+                text-gray-100
+              "
+            >
+              <button id="prev">
+                <i
+                  id="prev"
+                  class="
+                    iconify
+                    mr-4
+                    text-lg
+                    transform
+                    hover:scale-110 hover:text-white hover:ring-white
+                    cursor-pointer
+                    transition
+                    duration-200
+                  "
+                  data-icon="carbon:skip-back-filled"
+                ></i>
+              </button>
+              <button id="play">
+                <i
+                  id="play-icon"
+                  class="
+                    iconify
+                    mr-4
+                    text-xl
+                    transform
+                    hover:scale-110 hover:text-white hover:ring-white
+                    cursor-pointer
+                    transition
+                    duration-200
+                  "
+                  data-icon="el:play"
+                ></i>
+                <i
+                  id="pause-icon"
+                  class="
+                    hidden
+                    iconify
+                    mr-4
+                    text-xl
+                    transform
+                    hover:scale-110 hover:text-white hover:ring-white
+                    cursor-pointer
+                    transition
+                    duration-200
+                  "
+                  data-icon="fontisto:pause"
+                ></i>
+              </button>
+              <button id="next">
+                <i
+                  class="
+                    iconify
+                    text-lg
+                    transform
+                    hover:scale-110 hover:text-white hover:ring-white
+                    cursor-pointer
+                    transition
+                    duration-200
+                  "
+                  data-icon="carbon:skip-forward-filled"
+                ></i>
+              </button>
+            </div>
+
+            <!-- Progress -->
+            <div
+              id="progress-info"
+              class="
+                flex flex-auto
+                lg:justify-end
+                justify-center
+                items-center
+                mr-3
+                sm:w-full
+              "
+            >
+              <p
+                id="audio-played"
+                class="hidden sm:block text-xs text-white cursor-default"
+              >
+                0:00
+              </p>
+              <div
+                id="progress-container"
+                class="
+                  hidden
+                  sm:block
+                  h-1
+                  transform
+                  hover:scale-y-125
+                  w-8/12
+                  bg-gray-400
+                  rounded-full
+                  mx-3
+                  cursor-pointer
+                "
+              >
+                <div
+                  id="progress"
+                  class="
+                    rounded-full
+                    w-0
+                    h-full
+                    bg-gray-100
+                    animate-dilate
+                    hover:bg-white
+                  "
+                ></div>
+              </div>
+              <p
+                id="audio-length"
+                class="hidden sm:block text-xs text-white cursor-default"
+              >
+                0:00
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APOD Info -->
+    <div
+      id="info-page"
+      class="
+        animate-fade-in
+        hidden
+        absolute
+        top-0
+        bottom-0
+        w-screen
+        h-screen
+        flex
+        justify-center
+        px-12
+        py-5
+      "
+    >
+      <!-- Gray Container -->
+      <div
+        class="
+          border border-white border-opacity-20
+          rounded-3xl
+          bg-gray-200 bg-opacity-30
+          filter
+          shadow-3xl
+          backdrop-filter backdrop-blur-sm
+          w-11/12
+          shadow-inner
+          overflow-y-auto
+        "
+      >
+        <!-- Back Icon -->
+        <div id="back-to-main" class="container p-5">
+          <i
+            class="
+              iconify
+              text-gray-100 text-2xl
+              transform
+              hover:scale-110 hover:text-white hover:ring-white
+              cursor-pointer
+              transition
+              duration-200
+            "
+            data-icon="eva:arrow-back-fill"
+          ></i>
+        </div>
+
+        <!-- Photo and Info -->
+        <div class="container md:flex p-10 items-center">
+          <!-- Photo -->
+          <div
+            class="
+              container
+              flex-1
+              mr-5
+              filter
+              shadow-3xl
+              transform
+              hover:scale-105 hover:ring-white
+              cursor-pointer
+              transition
+              duration-500
+              max-h-screen
+            "
+          >
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">
+              <img
+                id="apod-photo"
+                src="https://im-media.voltron.voanews.com/Drupal/01live-166/styles/sourced/s3/2019-07/RTS1ZZL2.jpg?itok=2myFX4uig"
+                alt=""
+                max-h-lg
+              />
+            </a>
+          </div>
+
+          <!-- Article -->
+          <div
+            id="apod-article"
+            class="
+              flex-1
+              bg-black bg-opacity-50
+              rounded-3xl
+              filter
+              shadow-3xl
+              p-5
+              overflow-hidden
+              md:max-h-full
+              text-white
+              mt-5
+              md:mt-0 md:overflow-y-auto
+              h-auto
+            "
+          >
+            <div class="flex w-full justify-end">
+              <a
+                class="
+                  justify-end
+                  text-gray-300 text-xs
+                  italic
+                  cursor-pointer
+                  mb-3
+                "
+                href="https://api.nasa.gov/"
+                target="_blank"
+              >
+                Courtesy of NASA
+                <img
+                  class="inline w-8"
+                  src="https://api.nasa.gov/assets/img/favicons/favicon-192.png"
+                  alt=""
+                />
+              </a>
+            </div>
+
+            <p class="text-sm text-gray-300">Astronomy Picture of the Day</p>
+            <p id="apod-date" class="text-sm text-gray-300">2021-08-01</p>
+            <p
+              id="apod-title"
+              class="text-2xl font-bold text-white mt-3 text-center"
+            >
+              Tycho and Clavius
+            </p>
+            <p id="apod-text" class="text-sm mt-3 text-justify">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
+              perferendis nihil beatae, natus voluptatibus dolores, neque
+              repudiandae tempore aliquam optio soluta, nulla quam. Eius eum
+              ipsam a totam quidem magnam nobis reiciendis est perferendis neque
+              illum, voluptates sed sint beatae quae? Sequi expedita at
+              delectus, amet maiores assumenda et atque quidem veniam provident,
+              error neque consequuntur? Dolorum, sapiente placeat fugiat ducimus
+              delectus reprehenderit quam pariatur nihil magni quasi. Rerum
+              cupiditate aut architecto quam quia maiores aspernatur libero, id
+              quasi a molestiae accusamus alias nobis animi facere deserunt
+              laudantium perspiciatis, totam dicta. Officiis delectus totam
+              laudantium repellat earum facilis quia aperiam.
+            </p>
+            <p class="text-sm text-gray-300 mt-5">
+              Image by: <span id="apod-uploader">Derico</span>
+            </p>
+            <p class="text-sm text-gray-300">
+              Written and edited by:
+              <span id="apod-editor"
+                >Robert Nemiroff (MTU) & Jerry Bonnel (UMCP)</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="hidden">Derico</p>
+
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
