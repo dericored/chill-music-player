@@ -1,7 +1,8 @@
-
 # Study Companion (Music Player) with APOD and Spotify
 
 A simple music player using only HTML, Tailwind CSS and Vanilla Javascript with several additional features.
+
+<img src="./img/school-companion1.PNG" width="750px">
 
 ## Features
 
@@ -13,8 +14,6 @@ A simple music player using only HTML, Tailwind CSS and Vanilla Javascript with 
 
 ## Demo
 https://dericored.github.io/study-companion/
-
-![1](./img/school-companion1.PNG)
 
 
 
