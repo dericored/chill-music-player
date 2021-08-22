@@ -14,7 +14,7 @@ A simple music player made with HTML, Tailwind CSS and Vanilla JavaScript; with 
 
 <img src="./docs/musicplayer.gif" width="750px">
 
-https://dericored.github.io/study-companion/
+https://dericored.github.io/chill-music-player/
 
 
 
